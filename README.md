@@ -76,7 +76,7 @@ Below is a list of 30 business problems addressed through SQL queries:
 ## Installation
 
 1. **Set up a database**: Use PostgreSQL or another SQL database.
-2. **Import the dataset**: Load the Netflix dataset into a table named `netflix`.
+2. **Import the dataset**: Load the Netflix dataset into a table named `netflix_titles`.
 3. **Run the queries**: Execute the SQL queries to obtain insights.
 
 ## Sample Query
