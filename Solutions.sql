@@ -208,3 +208,141 @@ SELECT
 	COUNT(*)
 FROM new_table
 GROUP BY 1;
+
+
+16. Find the average release year for Movies and TV Shows!
+
+SELECT type, AVG(release_year) AS avg_release_year
+FROM netflix
+GROUP BY type;
+
+
+17. Identify the top 5 directors with the most content.
+
+SELECT director, COUNT(*) AS total_content
+FROM netflix
+WHERE director IS NOT NULL
+GROUP BY director
+ORDER BY total_content DESC
+LIMIT 5;
+
+
+18. List the top 3 countries with the highest number of TV Shows
+
+SELECT country, COUNT(*) AS total_tv_shows
+FROM netflix
+WHERE type = 'TV Show' AND country IS NOT NULL
+GROUP BY country
+ORDER BY total_tv_shows DESC
+LIMIT 3;
+
+
+19. Find the number of content items added each year.
+
+SELECT YEAR(date_added) AS year, COUNT(*) AS total_content_added
+FROM netflix
+WHERE date_added IS NOT NULL
+GROUP BY year
+ORDER BY year;
+
+
+20. Calculate the percentage of content for each rating category.
+
+SELECT
+       rating, 
+       COUNT(*) * 100.0 / (SELECT COUNT(*) FROM netflix) AS percentage
+FROM netflix
+GROUP BY rating;
+
+
+21. List all unique genres available on Netflix
+
+SELECT
+      DISTINCT TRIM(UNNEST(string_to_array(listed_in, ','))) AS genre
+FROM netflix;
+
+
+22. Identify the longest movie by duration.
+
+SELECT
+     title,
+	 duration
+FROM netflix
+WHERE type = 'Movie'
+ORDER BY CAST(SUBSTRING(duration FROM '[0-9]+') AS INTEGER) DESC
+LIMIT 1;
+
+
+23. Find all content items released before the year 2000.
+
+SELECT
+     title,
+	 release_year
+FROM netflix
+WHERE release_year < 2000;
+
+
+24. Count the number of TV Shows with more than 2 seasons.
+
+SELECT
+     COUNT(*) AS total_tv_shows
+FROM netflix
+WHERE type = 'TV Show' AND CAST(SUBSTRING(duration FROM '[0-9]+') AS INTEGER) > 2;
+
+
+25. Determine the most recent content added from each country.
+
+SELECT 
+     country,
+	 MAX(date_added) AS latest_date
+FROM netflix
+WHERE country IS NOT NULL
+GROUP BY country
+ORDER BY latest_date DESC;
+
+
+26. Find the most frequent actor appearing in content.
+
+SELECT 
+     actor, 
+	 COUNT(*) AS appearances
+FROM (SELECT UNNEST(string_to_array(cast, ',')) AS actor FROM netflix) AS actor_list
+GROUP BY actor
+ORDER BY appearances DESC
+LIMIT 1;
+
+
+27. List the 5 most popular genres among Movies.
+
+SELECT 
+     genre,
+	 COUNT(*) AS count
+FROM (SELECT UNNEST(string_to_array(listed_in, ',')) AS genre FROM netflix WHERE type = 'Movie') AS genres
+GROUP BY genre
+ORDER BY count DESC
+LIMIT 5;
+
+
+28. Identify the TV Show with the highest average IMDb rating (requires IMDb rating)!
+
+SELECT title, AVG(imdb_rating) AS avg_rating
+FROM netflix
+WHERE type = 'TV Show'
+GROUP BY title
+ORDER BY avg_rating DESC
+LIMIT 1;
+
+
+29. List all shows added in the last 6 months.
+
+SELECT title, date_added
+FROM netflix
+WHERE date_added::DATE > (CURRENT_DATE - INTERVAL '6 MONTH');
+
+
+30. Find the average duration of Movies based on rating.
+
+SELECT rating, AVG(CAST(SUBSTRING(duration FROM '[0-9]+') AS INTEGER)) AS avg_duration
+FROM netflix
+WHERE type = 'Movie'
+GROUP BY rating;
