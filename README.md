@@ -1,4 +1,4 @@
-# Netflix Data Analysis Project
+# Netflix Data Analysis Project using SQL
 
 ![Netflix Logo](logo.png)
 
@@ -6,7 +6,7 @@ This project analyzes a Netflix dataset using SQL queries to answer various busi
 
 ## Dataset
 
-The dataset used in this project can be downloaded from [Netflix Dataset Link](#https://www.kaggle.com/datasets/shivamb/netflix-shows?resource=download) (replace `#` with the link to your dataset). It includes various attributes about Netflix's content, such as `title`, `director`, `country`, `rating`, `duration`, and more.
+The dataset used in this project can be downloaded from [Netflix Dataset Link](https://www.kaggle.com/datasets/shivamb/netflix-shows?resource=download). It includes various attributes about Netflix's content, such as `title`, `director`, `country`, `rating`, `duration`, and more.
 
 ## Project Overview
 
